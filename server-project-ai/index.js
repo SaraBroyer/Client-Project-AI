@@ -21,22 +21,27 @@ app.post('/generate-blessing', async (req, res) => {
         const response = await axios.post(
             'https://api.openai.com/v1/engines/davinci-codex/completions',
             {
-                prompt,
-                max_tokens: 150, // Adjust as needed
-                temperature: 0.7, // Adjust as needed
+                model: "gpt-3.5-turbo",
+                messages: [
+                    {
+                        role: "user",
+                        content: prompt
+                    }
+                ]
             },
             {
                 headers: {
                     Authorization: `Bearer ${openaiApiKey}`,
+                    "Content-Type": application / json,
+
                 },
             }
         );
-
-        const blessing = response.data.choices[0].text.trim();
-        res.json({ blessing });
+        const blessingArry = response.data.choices.map(choice => choice.text.trim());
+        res.send({ blessingArry });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).send({ error: 'Internal Server Error' });
     }
 });
 
