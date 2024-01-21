@@ -9,9 +9,9 @@ const port = 3001;
 
 app.use(bodyParser.json());
 
-const openaiApiKey = 'YOUR_OPENAI_API_KEY';
+const openaiApiKey = 'XXXX';
 
-app.post('/generate-greeting', async (req, res) => {
+app.post('/generate-blessing', async (req, res) => {
     try {
         const { event, age, type, atmosphere } = req.body;
 
@@ -32,8 +32,8 @@ app.post('/generate-greeting', async (req, res) => {
             }
         );
 
-        const greeting = response.data.choices[0].text.trim();
-        res.json({ greeting });
+        const blessing = response.data.choices[0].text.trim();
+        res.json({ blessing });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
