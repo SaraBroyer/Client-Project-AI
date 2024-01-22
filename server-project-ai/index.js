@@ -9,7 +9,7 @@ const port = 3001;
 
 app.use(bodyParser.json());
 
-const openaiApiKey = 'XXXX';
+const openaiApiKey = process.env.API_KEY;
 
 app.post('/generate-blessing', async (req, res) => {
     try {
@@ -38,6 +38,7 @@ app.post('/generate-blessing', async (req, res) => {
             }
         );
         const blessingArry = response.data.choices.map(choice => choice.text.trim());
+        console.log(blessingArry);
         res.send({ blessingArry });
     } catch (error) {
         console.error(error);
